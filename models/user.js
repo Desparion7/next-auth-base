@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { error } from 'console';
+
 
 const userSchema = new Schema({
 	email: {

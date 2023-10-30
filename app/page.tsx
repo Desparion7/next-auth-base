@@ -6,7 +6,7 @@ export default function Home() {
 		<main className='flex min-h-screen flex-col items-center p-24 gap-3'>
 			<h1 className='text-4xl'>Rejestracja</h1>
 			<form action=''>
-				<div className='flex flex-col'>
+				{/* <div className='flex flex-col'>
 					<label htmlFor='name' className='py-2'>
 						Nazwa użytkownika:
 					</label>
@@ -15,8 +15,9 @@ export default function Home() {
 						name='name'
 						id='name'
 						className='text-black p-2 rounded-xl outline-green-500'
+						required
 					/>
-				</div>
+				</div> */}
 				<div className='flex flex-col'>
 					<label htmlFor='email' className='py-2'>
 						Email:
@@ -26,6 +27,7 @@ export default function Home() {
 						name='email'
 						id='email'
 						className='text-black p-2 rounded-xl outline-green-500'
+						required
 					/>
 				</div>
 				<div className='flex flex-col'>
@@ -37,6 +39,7 @@ export default function Home() {
 						name='password'
 						id='password'
 						className='text-black p-2 rounded-xl outline-green-500'
+						required
 					/>
 				</div>
 				<Button text={'Utwórz konto'} penddingText={'Rejestracja...'} />
