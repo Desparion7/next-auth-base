@@ -7,7 +7,7 @@ import User from '@/models/user';
 export const options: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
-			name: 'Credentials',
+			name: 'credentials',
 			credentials: {
 				email: {
 					label: 'Email',
@@ -43,4 +43,5 @@ export const options: NextAuthOptions = {
 			},
 		}),
 	],
+	secret: process.env.NEXTAUTH_SECRET,
 };

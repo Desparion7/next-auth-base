@@ -1,7 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-
 const userSchema = new Schema({
 	email: {
 		type: String,
@@ -10,7 +9,6 @@ const userSchema = new Schema({
 	},
 	username: {
 		type: String,
-		required: [true, 'Username is required!'],
 	},
 	password: {
 		type: String,

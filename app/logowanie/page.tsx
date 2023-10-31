@@ -1,20 +1,39 @@
-import React from 'react';
+'use client';
+import React, { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/button';
+import { signin } from '@/utils/singin';
 
 const Logowanie = () => {
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setIsLoading(true);
+		const formData = new FormData(e.currentTarget);
+		const email = formData.get('email') as string;
+		const password = formData.get('password') as string;
+
+		try {
+			const response = await signin(email, password);
+			if (response?.ok) {
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
 		<main className='flex min-h-screen flex-col items-center p-24 gap-3'>
 			<h1 className='text-4xl'>Logowanie</h1>
-			<form action=''>
+			<form onSubmit={submitHandler}>
 				<div className='flex flex-col'>
 					<label htmlFor='name' className='py-2'>
 						Nazwa użytkownika/ Email:
 					</label>
 					<input
-						type='name'
-						name='name'
-						id='name'
+						type='email'
+						name='email'
+						id='email'
 						className='text-black p-2 rounded-xl outline-green-500'
 					/>
 				</div>
