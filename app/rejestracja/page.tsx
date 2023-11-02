@@ -1,12 +1,11 @@
 'use client';
-import React, { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { FormEvent, useState } from 'react';
 import Button from '@/components/button';
-import { signin } from '@/utils/singin';
+import Link from 'next/link';
+import { signUp } from '@/utils/signup';
+import { toast } from 'react-hot-toast';
 
-const Logowanie = () => {
-	const router = useRouter();
+export default function Rejestracja() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -17,9 +16,12 @@ const Logowanie = () => {
 		const password = formData.get('password') as string;
 
 		try {
-			const response = await signin(email, password);
-			if (response?.ok) {
-				router.push('/');
+			const response = await signUp(email, password);
+			if (response.ok) {
+				toast.success('You account created');
+			}
+			if (response.status === 500) {
+				toast.error('User with that email already exist');
 			}
 		} catch (error) {
 			console.log(error);
@@ -28,17 +30,30 @@ const Logowanie = () => {
 	};
 	return (
 		<main className='flex min-h-screen flex-col items-center p-24 gap-3'>
-			<h1 className='text-4xl'>Logowanie</h1>
+			<h1 className='text-4xl'>Rejestracja</h1>
 			<form onSubmit={submitHandler}>
-				<div className='flex flex-col'>
+				{/* <div className='flex flex-col'>
 					<label htmlFor='name' className='py-2'>
-						Nazwa użytkownika/ Email:
+						Nazwa użytkownika:
+					</label>
+					<input
+						type='name'
+						name='name'
+						id='name'
+						className='text-black p-2 rounded-xl outline-green-500'
+						required
+					/>
+				</div> */}
+				<div className='flex flex-col'>
+					<label htmlFor='email' className='py-2'>
+						Email:
 					</label>
 					<input
 						type='email'
 						name='email'
 						id='email'
 						className='text-black p-2 rounded-xl outline-green-500'
+						required
 					/>
 				</div>
 				<div className='flex flex-col'>
@@ -50,25 +65,24 @@ const Logowanie = () => {
 						name='password'
 						id='password'
 						className='text-black p-2 rounded-xl outline-green-500'
+						required
 					/>
 				</div>
 				<Button
-					text={'Zaloguj się'}
-					penddingText={'Logowanie...'}
+					text={'Utwórz konto'}
+					penddingText={'Rejestracja...'}
 					loading={isLoading}
 				/>
 				<p className='mt-3'>
-					Nie masz konta?{' '}
+					Mam konto.{' '}
 					<Link
-						href='/rejestracja'
+						href='/logowanie'
 						className='text-blue-600 font-semibold hover:text-blue-400 transition'
 					>
-						Utwórz konto
+						Zaloguj się
 					</Link>{' '}
 				</p>
 			</form>
 		</main>
 	);
-};
-
-export default Logowanie;
+}
