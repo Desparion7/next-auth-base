@@ -7,18 +7,12 @@ const Toast = () => {
 				toastOptions={{
 					className: 'text-center',
 					duration: 3000,
-					position: 'top-right',
+					position: 'top-center',
 					style: {
 						background: 'rgb(255,255,255)',
 						color: 'rgb(0,0,0)',
 						padding: '16px',
 						border: '2px solid var(--mainColor)',
-					},
-					success: {
-						iconTheme: {
-							primary: 'var(--mainColor)',
-							secondary: 'rgb(255,255,255)',
-						},
 					},
 				}}
 			/>

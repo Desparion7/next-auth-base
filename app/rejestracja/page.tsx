@@ -14,17 +14,25 @@ export default function Rejestracja() {
 		const formData = new FormData(e.currentTarget);
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
+		const name = formData.get('name') as string;
 
 		try {
-			const response = await signUp(email, password);
+			const response = await signUp(email, password, name);
 			if (response.ok) {
-				toast.success('You account created');
+				toast.success('You account created.');
+			}
+			if (response.status === 501) {
+				toast.error('User with email already exists');
+			}
+			if (response.status === 502) {
+				toast.error('User with name already exists');
 			}
 			if (response.status === 500) {
-				toast.error('User with that email already exist');
+				toast.error('Something go wrong!');
 			}
 		} catch (error) {
 			console.log(error);
+			toast.error('Something go wrong!');
 		}
 		setIsLoading(false);
 	};
@@ -32,7 +40,7 @@ export default function Rejestracja() {
 		<main className='flex min-h-screen flex-col items-center p-24 gap-3'>
 			<h1 className='text-4xl'>Rejestracja</h1>
 			<form onSubmit={submitHandler}>
-				{/* <div className='flex flex-col'>
+				<div className='flex flex-col'>
 					<label htmlFor='name' className='py-2'>
 						Nazwa użytkownika:
 					</label>
@@ -43,7 +51,7 @@ export default function Rejestracja() {
 						className='text-black p-2 rounded-xl outline-green-500'
 						required
 					/>
-				</div> */}
+				</div>
 				<div className='flex flex-col'>
 					<label htmlFor='email' className='py-2'>
 						Email:

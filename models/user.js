@@ -9,6 +9,7 @@ const userSchema = new Schema({
 	},
 	username: {
 		type: String,
+		unique: [true, 'Username already taken!'],
 	},
 	password: {
 		type: String,

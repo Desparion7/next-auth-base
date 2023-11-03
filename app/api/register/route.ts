@@ -4,19 +4,26 @@ import User from '@/models/user';
 import bcrypt from 'bcrypt';
 
 export async function POST(req: Request) {
-	const { email, password } = await req.json();
+	const { email, password, name } = await req.json();
 
 	try {
 		await connectToDB();
-		const existUser = await User.findOne({ email });
-		if (existUser) {
+		const existUserName = await User.findOne({ username: name });
+		const existUserEmail = await User.findOne({ email });
+		if (existUserEmail) {
 			return NextResponse.json(
-				{ error: 'User already exists' },
-				{ status: 500 }
+				{ error: 'User with email already exists' },
+				{ status: 501 }
+			);
+		}
+		if (existUserName) {
+			return NextResponse.json(
+				{ error: 'Username already exists' },
+				{ status: 502 }
 			);
 		}
 		const hashedPassword = await bcrypt.hash(password, 10);
-		await User.create({ email, password: hashedPassword });
+		await User.create({ email, password: hashedPassword, username: name });
 		return NextResponse.json(
 			{ message: 'User registered.' },
 			{ status: 201 }
