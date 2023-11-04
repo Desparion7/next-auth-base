@@ -14,6 +14,12 @@ const Toast = () => {
 						padding: '16px',
 						border: '2px solid var(--mainColor)',
 					},
+					success: {
+						iconTheme: {
+							primary: 'var(--mainColor)',
+							secondary: 'rgb(255,255,255)',
+						},
+					},
 				}}
 			/>
 		</div>
