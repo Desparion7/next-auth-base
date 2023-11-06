@@ -4,6 +4,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Button from '@/components/button';
 import { signin } from '@/utils/singin';
+import Input from '@/components/input';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema, TLoginSchema } from '@/utils/zodTypes';
 
 const Logowanie = () => {
 	const router = useRouter();
@@ -26,44 +30,47 @@ const Logowanie = () => {
 		}
 		setIsLoading(false);
 	};
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		reset,
+	} = useForm<TLoginSchema>({
+		resolver: zodResolver(loginSchema),
+	});
 	return (
 		<main className='flex min-h-screen flex-col items-center p-24 gap-3'>
-			<h1 className='text-4xl'>Logowanie</h1>
-			<form onSubmit={submitHandler}>
-				<div className='flex flex-col'>
-					<label htmlFor='name' className='py-2'>
-						Nazwa użytkownika/ Email:
-					</label>
-					<input
-						type='email'
-						name='email'
-						id='email'
-						className='text-black p-2 rounded-xl outline-green-500'
-					/>
-				</div>
-				<div className='flex flex-col'>
-					<label htmlFor='password' className='py-2'>
-						Hasło:
-					</label>
-					<input
-						type='password'
-						name='password'
-						id='password'
-						className='text-black p-2 rounded-xl outline-green-500'
-					/>
-				</div>
+			<h1 className='text-4xl mb-5 uppercase font-semibold'>Logowanie</h1>
+			<form
+				onSubmit={submitHandler}
+				className='flex flex-col text-center'
+			>
+				<Input
+					label={'Email'}
+					type={'email'}
+					name={'email'}
+					register={register('email')}
+					errorMessage={errors.email?.message}
+				/>
+				<Input
+					label={'Hasło'}
+					type={'password'}
+					name={'password'}
+					register={register('password')}
+					errorMessage={errors.password?.message}
+				/>
 				<Button
 					text={'Zaloguj się'}
 					penddingText={'Logowanie...'}
 					loading={isLoading}
 				/>
-				<p className='mt-3'>
+				<p className='mt-3 text-lg'>
 					Nie masz konta?{' '}
 					<Link
 						href='/rejestracja'
-						className='text-blue-600 font-semibold hover:text-blue-400 transition'
+						className='text-blue-600 font-semibold hover:text-blue-800 transition-all'
 					>
-						Utwórz konto
+						Utwórz konto.
 					</Link>{' '}
 				</p>
 			</form>

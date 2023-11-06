@@ -8,8 +8,8 @@ export const loginSchema = z.object({
 export const registrationSchema = z
 	.object({
 		name: z.string().min(1, 'Pole wymagane'),
-		email: z.string().email(),
-		password: z.string().min(8, 'Password must be at least 8 characters'),
+		email: z.string().email('Nieprawidłowy format maila'),
+		password: z.string().min(8, 'Hasło musi zawierać minimum 8 znaków'),
 		repeatPassword: z.string(),
 	})
 	.refine((data) => data.password === data.repeatPassword, {
