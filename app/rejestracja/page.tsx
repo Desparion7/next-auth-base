@@ -1,12 +1,13 @@
 'use client';
 import Button from '@/components/button';
+import Input from '@/components/input';
 import Link from 'next/link';
 import { signUp } from '@/utils/signup';
 import { toast } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-import { TRegistrationSchema, registrationSchema } from '@/utils/zodTypes';
+import { motion } from 'framer-motion';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Input from '@/components/input';
+import { TRegistrationSchema, registrationSchema } from '@/utils/zodTypes';
 
 export default function Rejestracja() {
 	const submitHandler = async (data: TRegistrationSchema) => {
@@ -41,55 +42,72 @@ export default function Rejestracja() {
 
 	return (
 		<main className='flex min-h-screen flex-col items-center justify-center p-24 gap-3'>
-			<h1 className='text-4xl mb-5 uppercase font-semibold'>
-				Rejestracja
-			</h1>
 			<form
 				onSubmit={handleSubmit(submitHandler)}
 				className='flex flex-col text-center'
 			>
-				<Input
-					label='Nazwa użytkownika'
-					type='text'
-					name='name'
-					register={register('name')}
-					errorMessage={errors.name?.message}
-				/>
-				<Input
-					label='Email'
-					type='email'
-					name='email'
-					register={register('email')}
-					errorMessage={errors.email?.message}
-				/>
-				<Input
-					label='Hasło'
-					type='password'
-					name='password'
-					register={register('password')}
-					errorMessage={errors.password?.message}
-				/>
-				<Input
-					label='Powtórz hasło'
-					type='password'
-					name='repeatPassword'
-					register={register('repeatPassword')}
-					errorMessage={errors.repeatPassword?.message}
-				/>
-				<Button
-					text={'Utwórz konto'}
-					penddingText={'Rejestracja...'}
-					loading={isSubmitting}
-				/>
-				<p className='mt-3 text-lg text-black'>
-					Mam konto.{' '}
-					<Link
-						href='/logowanie'
-						className='text-blue-600 font-semibold hover:text-blue-800 transition'
-					>
-						Zaloguj się
-					</Link>{' '}
-				</p>
+				<motion.div
+					initial={{ opacity: 0, y: -200 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						ease: 'linear',
+					}}
+				>
+					<h1 className='text-4xl mb-10 uppercase font-semibold'>
+						Rejestracja
+					</h1>
+					<Input
+						label='Nazwa użytkownika'
+						type='text'
+						name='name'
+						register={register('name')}
+						errorMessage={errors.name?.message}
+					/>
+					<Input
+						label='Email'
+						type='email'
+						name='email'
+						register={register('email')}
+						errorMessage={errors.email?.message}
+					/>
+					<Input
+						label='Hasło'
+						type='password'
+						name='password'
+						register={register('password')}
+						errorMessage={errors.password?.message}
+					/>
+					<Input
+						label='Powtórz hasło'
+						type='password'
+						name='repeatPassword'
+						register={register('repeatPassword')}
+						errorMessage={errors.repeatPassword?.message}
+					/>
+				</motion.div>
+				<motion.div
+					className='w-[100%]'
+					initial={{ opacity: 0, y: 200 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						ease: 'linear',
+					}}
+				>
+					<Button
+						text={'Utwórz konto'}
+						penddingText={'Rejestracja...'}
+						loading={isSubmitting}
+					/>
+					<p className='mt-3 text-lg text-black'>
+						Mam konto.{' '}
+						<Link
+							href='/logowanie'
+							className='text-blue-600 font-semibold hover:text-blue-800 transition'
+						>
+							Zaloguj się
+						</Link>{' '}
+					</p>
+				</motion.div>
 			</form>
 		</main>
 	);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { motion } from 'framer-motion';
 
 type InputType = {
 	type: string;
@@ -55,14 +56,14 @@ const Input = ({ type, name, register, errorMessage, label }: InputType) => {
 				</span>
 			</label>
 			{errorMessage && (
-				<p
+				<motion.p
 					className='my-3 text-red-600 font-semibold'
-					// initial={{ opacity: 0, x: -100 }}
-					// animate={{ opacity: 1, x: 0 }}
-					// exit={{ opacity: 0, x: 100 }}
+					initial={{ opacity: 0, x: -100 }}
+					animate={{ opacity: 1, x: 0 }}
+					exit={{ opacity: 0, x: 100 }}
 				>
 					{errorMessage}
-				</p>
+				</motion.p>
 			)}
 		</div>
 	);

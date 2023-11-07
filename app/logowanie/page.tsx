@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '@/components/button';
@@ -40,39 +41,58 @@ const Logowanie = () => {
 	});
 	return (
 		<main className='flex min-h-screen flex-col items-center justify-center p-24 gap-3'>
-			<h1 className='text-4xl mb-5 uppercase font-semibold'>Logowanie</h1>
 			<form
 				onSubmit={handleSubmit(submitHandler)}
 				className='flex flex-col text-center'
 			>
-				<Input
-					label={'Email'}
-					type={'email'}
-					name={'email'}
-					register={register('email')}
-					errorMessage={errors.email?.message}
-				/>
-				<Input
-					label={'Hasło'}
-					type={'password'}
-					name={'password'}
-					register={register('password')}
-					errorMessage={errors.password?.message}
-				/>
-				<Button
-					text={'Zaloguj się'}
-					penddingText={'Logowanie...'}
-					loading={isSubmitting}
-				/>
-				<p className='mt-3 text-lg text-black'>
-					Nie masz konta?{' '}
-					<Link
-						href='/rejestracja'
-						className='text-blue-600 font-semibold hover:text-blue-800 transition-all'
-					>
-						Utwórz konto.
-					</Link>{' '}
-				</p>
+				<motion.div
+					initial={{ opacity: 0, y: -200 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						ease: 'linear',
+					}}
+				>
+					<h1 className='text-4xl mb-10 uppercase font-semibold'>
+						Logowanie
+					</h1>
+					<Input
+						label={'Email'}
+						type={'email'}
+						name={'email'}
+						register={register('email')}
+						errorMessage={errors.email?.message}
+					/>
+					<Input
+						label={'Hasło'}
+						type={'password'}
+						name={'password'}
+						register={register('password')}
+						errorMessage={errors.password?.message}
+					/>
+				</motion.div>
+				<motion.div
+					className='w-[100%]'
+					initial={{ opacity: 0, y: 200 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						ease: 'linear',
+					}}
+				>
+					<Button
+						text={'Zaloguj się'}
+						penddingText={'Logowanie...'}
+						loading={isSubmitting}
+					/>
+					<p className='mt-3 text-lg text-black'>
+						Nie masz konta?{' '}
+						<Link
+							href='/rejestracja'
+							className='text-blue-600 font-semibold hover:text-blue-800 transition-all'
+						>
+							Utwórz konto.
+						</Link>{' '}
+					</p>
+				</motion.div>
 			</form>
 		</main>
 	);
