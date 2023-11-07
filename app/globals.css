@@ -5,6 +5,7 @@
 :root {
 	--mainColor: rgb(7, 7, 231);
 	--mainColorOpacity60: rgb(159, 159, 159);
+	--error-color: red;
 }
 
 body {

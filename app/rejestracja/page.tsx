@@ -17,10 +17,10 @@ export default function Rejestracja() {
 				reset();
 			}
 			if (response.status === 501) {
-				toast.error('Użytkownik o podanym emailu już istnieje');
+				toast.error('Użytkownik o podanym mailu już istnieje!');
 			}
 			if (response.status === 502) {
-				toast.error('Użytkownik o podanej nazwie już istnieje');
+				toast.error('Użytkownik o podanej nazwie już istnieje!');
 			}
 			if (response.status === 500) {
 				toast.error('Coś poszło nie tak!');
@@ -40,34 +40,39 @@ export default function Rejestracja() {
 	});
 
 	return (
-		<main className='flex min-h-screen flex-col items-center p-24 gap-3'>
-			<h1 className='text-4xl mb-5 uppercase font-semibold'>Rejestracja</h1>
-			<form onSubmit={handleSubmit(submitHandler)} className='flex flex-col text-center'>
+		<main className='flex min-h-screen flex-col items-center justify-center p-24 gap-3'>
+			<h1 className='text-4xl mb-5 uppercase font-semibold'>
+				Rejestracja
+			</h1>
+			<form
+				onSubmit={handleSubmit(submitHandler)}
+				className='flex flex-col text-center'
+			>
 				<Input
-					label={'Nazwa użytkownika'}
-					type={'text'}
-					name={'name'}
+					label='Nazwa użytkownika'
+					type='text'
+					name='name'
 					register={register('name')}
 					errorMessage={errors.name?.message}
 				/>
 				<Input
-					label={'Email'}
-					type={'email'}
-					name={'email'}
+					label='Email'
+					type='email'
+					name='email'
 					register={register('email')}
 					errorMessage={errors.email?.message}
 				/>
 				<Input
-					label={'Hasło'}
-					type={'password'}
-					name={'password'}
+					label='Hasło'
+					type='password'
+					name='password'
 					register={register('password')}
 					errorMessage={errors.password?.message}
 				/>
 				<Input
-					label={'Powtórz hasło'}
-					type={'password'}
-					name={'repeatPassword'}
+					label='Powtórz hasło'
+					type='password'
+					name='repeatPassword'
 					register={register('repeatPassword')}
 					errorMessage={errors.repeatPassword?.message}
 				/>
@@ -76,7 +81,7 @@ export default function Rejestracja() {
 					penddingText={'Rejestracja...'}
 					loading={isSubmitting}
 				/>
-				<p className='mt-3 text-lg'>
+				<p className='mt-3 text-lg text-black'>
 					Mam konto.{' '}
 					<Link
 						href='/logowanie'

@@ -11,13 +11,14 @@ type InputType = {
 };
 
 const Input = ({ type, name, register, errorMessage, label }: InputType) => {
-	const borderColor = !errorMessage ? 'border-gray-300' : 'border-red-400 ';
+	const borderColor = !errorMessage ? 'border-gray-300' : 'border-red-400';
 	const spanBorderColor = !errorMessage
 		? 'border-gray-600'
 		: 'peer-[&:not(:placeholder-shown)]:border-red-400';
+	const spanColor = errorMessage && 'text-red-400';
 
 	return (
-		<div className='w-full mb-7 lg:mb-10 '>
+		<div className='w-full mb-7 lg:mb-5 '>
 			<label
 				htmlFor={name}
 				className='relative w-full text-sm lg:text-sm'
@@ -27,13 +28,11 @@ const Input = ({ type, name, register, errorMessage, label }: InputType) => {
 					type={type}
 					name={name}
 					id={name}
-					className={`shadow-lg p-[0.75rem] w-[90%] lg:w-full rounded-sm outline-none placeholder:text-transparent text-black peer  ${borderColor} 
-                    focus-within:border-[var(--mainColorOpacity60)] border-2 transition-all duration-300 `}
+					className={`shadow-lg p-[0.75rem] w-[90%] lg:w-full rounded-sm outline-none mb-3 placeholder:text-transparent text-black peer  ${borderColor} focus-within:border-[var(--mainColorOpacity60)] border-2 transition-all duration-300 `}
 					placeholder={`${errorMessage ? { errorMessage } : ''}`}
 				/>
 				<span
-					className={`absolute left-[1.25rem] -top-[0.20rem] transition-all cursor-text duration-300 rounded-sm
-                    text-black
+					className={`absolute left-[1.25rem] -top-[0.20rem] transition-all cursor-text duration-300 rounded-sm text-black ${spanColor}
                     peer-focus-within:-top-[2.4rem]
                     peer-focus-within:left-[1.563rem]
                     peer-focus-within:text-sm
@@ -57,7 +56,7 @@ const Input = ({ type, name, register, errorMessage, label }: InputType) => {
 			</label>
 			{errorMessage && (
 				<p
-					className='mt-2 text-red-400 text-sm'
+					className='my-3 text-red-600 font-semibold'
 					// initial={{ opacity: 0, x: -100 }}
 					// animate={{ opacity: 1, x: 0 }}
 					// exit={{ opacity: 0, x: 100 }}
