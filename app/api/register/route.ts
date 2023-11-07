@@ -12,25 +12,25 @@ export async function POST(req: Request) {
 		const existUserEmail = await User.findOne({ email });
 		if (existUserEmail) {
 			return NextResponse.json(
-				{ error: 'User with email already exists' },
+				{ error: 'Użytkownik o podanym mailu już istnieje.' },
 				{ status: 501 }
 			);
 		}
 		if (existUserName) {
 			return NextResponse.json(
-				{ error: 'Username already exists' },
+				{ error: 'Użytkownik o podanej nazwie już istnieje.' },
 				{ status: 502 }
 			);
 		}
 		const hashedPassword = await bcrypt.hash(password, 10);
 		await User.create({ email, password: hashedPassword, username: name });
 		return NextResponse.json(
-			{ message: 'User registered.' },
+			{ message: 'Użytkownik zarejestrowany' },
 			{ status: 201 }
 		);
 	} catch (error) {
 		return NextResponse.json(
-			{ message: 'An error occurred while registering the user.' },
+			{ message: 'Wystąpił problem podczas rejstracji' },
 			{ status: 500 }
 		);
 	}

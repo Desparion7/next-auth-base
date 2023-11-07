@@ -11,24 +11,31 @@ import { TRegistrationSchema, registrationSchema } from '@/utils/zodTypes';
 
 export default function Rejestracja() {
 	const submitHandler = async (data: TRegistrationSchema) => {
-		try {
-			const response = await signUp(data.email, data.password, data.name);
-			if (response.ok) {
-				toast.success('Konto użytkownika zostało utworzone');
-				reset();
-			}
+		const response = await signUp(data.email, data.password, data.name);
+		if (response.ok) {
+			toast.success('Konto użytkownika zostało utworzone.');
+			reset();
+		}
+		const responseData = await response.json();
+		console.log(responseData);
+		if (responseData.error) {
 			if (response.status === 501) {
-				toast.error('Użytkownik o podanym mailu już istnieje!');
+				toast.error(responseData.error);
+				setError('email', {
+					type: 'server',
+					message: responseData.error,
+				});
+			} else if (response.status === 502) {
+				toast.error(responseData.error);
+				setError('name', {
+					type: 'server',
+					message: responseData.error,
+				});
+			} else if (response.status === 500) {
+				toast.error(responseData.error);
+			} else {
+				toast.error(responseData.error);
 			}
-			if (response.status === 502) {
-				toast.error('Użytkownik o podanej nazwie już istnieje!');
-			}
-			if (response.status === 500) {
-				toast.error('Coś poszło nie tak!');
-			}
-		} catch (error) {
-			console.log(error);
-			toast.error('Coś poszło nie tak!');
 		}
 	};
 	const {
@@ -36,6 +43,7 @@ export default function Rejestracja() {
 		handleSubmit,
 		formState: { errors, isSubmitting },
 		reset,
+		setError,
 	} = useForm<TRegistrationSchema>({
 		resolver: zodResolver(registrationSchema),
 	});
@@ -56,19 +64,20 @@ export default function Rejestracja() {
 					<h1 className='text-4xl mb-10 uppercase font-semibold'>
 						Rejestracja
 					</h1>
-					<Input
-						label='Nazwa użytkownika'
-						type='text'
-						name='name'
-						register={register('name')}
-						errorMessage={errors.name?.message}
-					/>
+
 					<Input
 						label='Email'
 						type='email'
 						name='email'
 						register={register('email')}
 						errorMessage={errors.email?.message}
+					/>
+					<Input
+						label='Nazwa użytkownika'
+						type='text'
+						name='name'
+						register={register('name')}
+						errorMessage={errors.name?.message}
 					/>
 					<Input
 						label='Hasło'
