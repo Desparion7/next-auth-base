@@ -12,12 +12,12 @@ import { TRegistrationSchema, registrationSchema } from '@/utils/zodTypes';
 export default function Rejestracja() {
 	const submitHandler = async (data: TRegistrationSchema) => {
 		const response = await signUp(data.email, data.password, data.name);
+		const responseData = await response.json();
+
 		if (response.ok) {
 			toast.success('Konto użytkownika zostało utworzone.');
 			reset();
 		}
-		const responseData = await response.json();
-		console.log(responseData);
 		if (responseData.error) {
 			if (response.status === 501) {
 				toast.error(responseData.error);

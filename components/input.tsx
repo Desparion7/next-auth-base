@@ -8,7 +8,6 @@ type InputType = {
 	errorMessage?: string;
 	register: UseFormRegisterReturn;
 	label: string;
-	// onChange: () => void;
 };
 
 const Input = ({ type, name, register, errorMessage, label }: InputType) => {
@@ -35,7 +34,7 @@ const Input = ({ type, name, register, errorMessage, label }: InputType) => {
 				<span
 					className={`absolute left-[1.25rem] -top-[0.20rem] transition-all cursor-text duration-300 rounded-sm text-black ${spanColor}
                     peer-focus-within:-top-[2.4rem]
-                    peer-focus-within:left-[1.563rem]
+                    peer-focus-within:left-[1.2rem]
                     peer-focus-within:text-sm
                     peer-focus-within:bg-gray-300
                     peer-focus-within:px-5
@@ -44,7 +43,7 @@ const Input = ({ type, name, register, errorMessage, label }: InputType) => {
                     peer-focus-within:border-2
                     peer-focus-within:[&:not(:placeholder-shown)]:border-[var(--mainColorOpacity60)]
                     peer-[&:not(:placeholder-shown)]:-top-[2.4rem] 
-                    peer-[&:not(:placeholder-shown)]:left-[1.563rem]
+                    peer-[&:not(:placeholder-shown)]:left-[1.2rem]
                     peer-[&:not(:placeholder-shown)]:text-sm
                     peer-[&:not(:placeholder-shown)]:bg-gray-300
                     peer-[&:not(:placeholder-shown)]:px-5
